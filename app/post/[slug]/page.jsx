@@ -6,8 +6,9 @@ import { format } from 'date-fns'
 import { notFound } from 'next/navigation'
 
 export async function generateMetadata({ params }) {
+	const { slug } = await params
 	return {
-		title: params.slug,
+		title: { slug },
 	}
 }
 
@@ -22,7 +23,7 @@ export async function generateStaticParams() {
 }
 
 export default async function PostPage({ params }) {
-	const { slug } = params
+	const { slug } = await params
 	const query = `*[_type=="posts" && slug.current =='${slug}'][0]`
 
 	const post = await client.fetch(query)
