@@ -1,4 +1,5 @@
 export { default as Article } from './Article'
+export { default as BodyPortableTextComponents } from './BodyPortableTextComponents'
 export { default as Button } from './Button'
 export { default as BuyMeCoffee } from './BuyMeCoffee'
 export { default as Content } from './Content'
