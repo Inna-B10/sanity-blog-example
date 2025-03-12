@@ -28,7 +28,7 @@ export default function PostsClient({ initialPosts, total }) {
 			{posts.map(post => (
 				<Post
 					key={post.slug.current}
-					image={post.image}
+					icon={post.icon}
 					description={post.description}
 					slug={post.slug}
 					title={post.title}

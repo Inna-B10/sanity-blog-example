@@ -8,7 +8,7 @@ const BodyPortableTextComponents = {
 				return null
 			}
 
-			const imageUrl = urlFor(value).width(800).url()
+			const imageUrl = urlFor(value).auto('format').fit('max').url()
 
 			return (
 				<div style={{ margin: '1rem 0' }}>
@@ -17,9 +17,12 @@ const BodyPortableTextComponents = {
 						alt={value.alt || ' '}
 						width={800}
 						height={600}
+						quality={85}
+						priority={false}
 						style={{
-							borderRadius: '0.5rem',
-							objectFit: 'cover',
+							width: '100%',
+							height: '100%',
+							objectFit: 'contain',
 						}}
 					/>
 				</div>

@@ -2,7 +2,7 @@ import { getExtension } from '@sanity/asset-utils'
 import { ComposeIcon } from '@sanity/icons'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 import { isUniqueAcrossAllDocuments } from '../lib/isUniqueAcrossAllDocuments'
-import CaptionInput from './components/CaptionInput'
+import AltInput from './components/AltInput'
 import GenerateMetaInput from './components/GenerateMetaInput'
 
 export const postType = defineType({
@@ -51,17 +51,29 @@ export const postType = defineType({
 			group: 'content',
 		}),
 		defineField({
-			name: 'image',
+			name: 'icon',
 			type: 'image',
 			title: 'Icon',
 			fields: [
 				{
-					name: 'caption',
+					name: 'alt',
 					type: 'string',
-					title: 'Caption',
+					title: 'Alt text',
 					components: {
-						input: CaptionInput,
+						input: AltInput,
 					},
+					hidden: ({ parent }) => {
+						return !parent?.asset
+					},
+					validation: rule =>
+						rule.custom((caption, context) => {
+							const parent = context.parent
+
+							if (parent?.asset && !caption) {
+								return 'Alt text is required when an image is uploaded'
+							}
+							return true //if no image uploaded
+						}),
 				},
 			],
 			validation: rule =>
@@ -72,10 +84,8 @@ export const postType = defineType({
 
 					const filetype = getExtension(value.asset._ref)
 
-					if (
-						!['jpg', 'jpeg', 'png', 'svg', 'webp', 'ico'].includes(filetype)
-					) {
-						return 'Image must be a JPG, PNG, SVG, WEBP or ICO'
+					if (!['jpg', 'jpeg', 'png', 'svg', 'webp'].includes(filetype)) {
+						return 'Image must be a JPG, PNG, SVG or WEBP'
 					}
 
 					//       const { width, height } = getImageDimensions(value.asset._ref)
@@ -119,6 +129,28 @@ export const postType = defineType({
 				}),
 				defineArrayMember({
 					type: 'image',
+					fields: [
+						{
+							name: 'alt',
+							type: 'string',
+							title: 'Alt text',
+							components: {
+								input: AltInput,
+							},
+							hidden: ({ parent }) => {
+								return !parent?.asset
+							},
+							validation: rule =>
+								rule.custom((caption, context) => {
+									const parent = context.parent
+
+									if (parent?.asset && !caption) {
+										return 'Alt text is required when an image is uploaded'
+									}
+									return true //if no image uploaded
+								}),
+						},
+					],
 				}),
 			],
 			validation: rule => rule.required().error('Required field'),
