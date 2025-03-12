@@ -4,6 +4,7 @@ import { defineArrayMember, defineField, defineType } from 'sanity'
 import { isUniqueAcrossAllDocuments } from '../lib/isUniqueAcrossAllDocuments'
 import AltInput from './components/AltInput'
 import GenerateMetaInput from './components/GenerateMetaInput'
+import { inlineImage } from './inlineImage'
 
 export const postType = defineType({
 	name: 'posts',
@@ -127,6 +128,7 @@ export const postType = defineType({
 				defineArrayMember({
 					type: 'block',
 				}),
+				defineArrayMember(inlineImage),
 				defineArrayMember({
 					type: 'image',
 					fields: [

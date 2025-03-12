@@ -2,6 +2,9 @@ import { urlFor } from '@/sanity/lib/image'
 import Image from 'next/image'
 
 const BodyPortableTextComponents = {
+	block: {
+		normal: ({ children }) => <p>{children}</p>,
+	},
 	types: {
 		image: ({ value }) => {
 			if (!value?.asset?._ref) {
@@ -14,7 +17,7 @@ const BodyPortableTextComponents = {
 				<div style={{ margin: '1rem 0' }}>
 					<Image
 						src={imageUrl}
-						alt={value.alt || ' '}
+						alt={value.alt || ''}
 						width={800}
 						height={600}
 						quality={85}
@@ -23,9 +26,28 @@ const BodyPortableTextComponents = {
 							width: '100%',
 							height: '100%',
 							objectFit: 'contain',
+							display: 'inline',
+							// maxWidth: '300px',
+							// height: 'auto',
 						}}
 					/>
 				</div>
+			)
+		},
+		inlineImage: ({ value }) => {
+			return (
+				<span
+					style={{ display: 'inline-block', maxWidth: '150px', width: '100%' }}>
+					<img
+						src={urlFor(value.image.asset).width(150).url()}
+						alt={value.alt || ''}
+						style={{
+							display: 'block',
+							width: '100%',
+							height: 'auto',
+						}}
+					/>
+				</span>
 			)
 		},
 	},

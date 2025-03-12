@@ -6,7 +6,6 @@ import { Title } from '..'
 import styles from './index.module.scss'
 
 export default function Post({ className, icon, title, description, slug }) {
-	console.log(icon, title, slug)
 	return (
 		<Link
 			href={`/post/${encodeURIComponent(slug.current)}`}
