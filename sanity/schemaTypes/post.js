@@ -127,8 +127,8 @@ export const postType = defineType({
 			of: [
 				defineArrayMember({
 					type: 'block',
+					of: [defineArrayMember(inlineImage)],
 				}),
-				defineArrayMember(inlineImage),
 				defineArrayMember({
 					type: 'image',
 					fields: [
