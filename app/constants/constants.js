@@ -1,3 +1,10 @@
+import {
+	AiFillGithub,
+	AiFillLinkedin,
+	AiFillTwitterSquare,
+	AiFillYoutube,
+} from 'react-icons/ai'
+
 export const revalidate = 3600
 
 export const LOAD_MORE_STEP = 4
