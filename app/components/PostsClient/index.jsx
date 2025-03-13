@@ -1,8 +1,8 @@
 'use client'
+import { LOAD_MORE_STEP } from '@/app/constants/constants'
 import { useState } from 'react'
 import { Button, Post } from '..'
 
-const LOAD_MORE_STEP = 4
 export default function PostsClient({ initialPosts, total }) {
 	const [posts, setPosts] = useState(initialPosts)
 	const [loading, setLoading] = useState(false)

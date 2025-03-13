@@ -1,18 +1,17 @@
-import { loadPosts } from './api/posts'
+import { fetchAllPosts } from './api/fetchAllPosts'
 import {
-	BuyMeCoffee,
 	Cover,
 	PostGrid,
 	PostsClient,
 	Section,
 	SocialNetworks,
+	Subscribe,
 	Title,
 } from './components'
-
-const LOAD_MORE_STEP = 4
+import { LOAD_MORE_STEP } from './constants/constants'
 
 export default async function Home() {
-	const { posts: initialPosts, total } = await loadPosts(0, LOAD_MORE_STEP)
+	const { posts: initialPosts, total } = await fetchAllPosts(0, LOAD_MORE_STEP)
 
 	return (
 		<>
@@ -20,7 +19,7 @@ export default async function Home() {
 				<Section>
 					<Cover title='Elena <br /> Litvinova'></Cover>
 					<SocialNetworks />
-					<BuyMeCoffee />
+					<Subscribe />
 				</Section>
 				<Section>
 					<Title>New Posts</Title>
