@@ -88,13 +88,6 @@ export const postType = defineType({
 					if (!['jpg', 'jpeg', 'png', 'svg', 'webp'].includes(filetype)) {
 						return 'Image must be a JPG, PNG, SVG or WEBP'
 					}
-
-					//       const { width, height } = getImageDimensions(value.asset._ref)
-					//
-					//       if (width < 1200 || height < 630) {
-					//         return 'Image must be at least 1200x630 pixels'
-					//       }
-
 					return true
 				}),
 			group: 'content',

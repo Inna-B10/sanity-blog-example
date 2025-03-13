@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { loadPosts } from '../posts'
+import { fetchAllPosts } from '../fetchAllPosts'
 
 export async function GET(request) {
 	const { searchParams } = new URL(request.url)
@@ -7,7 +7,7 @@ export async function GET(request) {
 	const start = parseInt(searchParams.get('start')) || 0
 	const end = parseInt(searchParams.get('end')) || 4
 
-	const { posts, total } = await loadPosts(start, end)
+	const { posts, total } = await fetchAllPosts(start, end)
 
 	return NextResponse.json({ posts, total })
 }

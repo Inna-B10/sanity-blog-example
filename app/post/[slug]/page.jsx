@@ -1,16 +1,13 @@
 import { client } from '@/sanity/lib/client'
 import styles from './styles.module.scss'
 
+import { fetchPostBySlug } from '@/app/api/fetchPostBySlug'
 import { Article, Content, Title } from '@/app/components'
+import { revalidate } from '@/app/constants/constants'
 import { format } from 'date-fns'
 import { notFound } from 'next/navigation'
 
-export async function generateMetadata({ params }) {
-	const { slug } = await params
-	return {
-		title: { slug },
-	}
-}
+revalidate
 
 export async function generateStaticParams() {
 	const query = `*[_type=="posts"]{slug{current}}`
@@ -22,11 +19,26 @@ export async function generateStaticParams() {
 	}))
 }
 
+export async function generateMetadata({ params }) {
+	const { slug } = await params
+
+	const post = await fetchPostBySlug(slug)
+
+	if (!post) {
+		return {
+			title: 'Not found',
+		}
+	}
+	return {
+		title: post.meta_title || post.slug,
+		description: post.description || '',
+	}
+}
+
 export default async function PostPage({ params }) {
 	const { slug } = await params
-	const query = `*[_type=="posts" && slug.current =='${slug}'][0]`
 
-	const post = await client.fetch(query)
+	const post = await fetchPostBySlug(slug)
 
 	if (!post) {
 		notFound()

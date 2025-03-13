@@ -26,9 +26,6 @@ const BodyPortableTextComponents = {
 							width: '100%',
 							height: '100%',
 							objectFit: 'contain',
-							display: 'inline',
-							// maxWidth: '300px',
-							// height: 'auto',
 						}}
 					/>
 				</div>
@@ -36,10 +33,9 @@ const BodyPortableTextComponents = {
 		},
 		inlineImage: ({ value }) => {
 			return (
-				<span
-					style={{ display: 'inline-block', maxWidth: '150px', width: '100%' }}>
+				<span style={{ float: 'right', maxWidth: '50%' }}>
 					<img
-						src={urlFor(value.image.asset).width(150).url()}
+						src={urlFor(value.image.asset).width(800).url()}
 						alt={value.alt || ''}
 						style={{
 							display: 'block',
@@ -62,7 +58,7 @@ const BodyPortableTextComponents = {
 					href={value.href}
 					rel={rel}
 					style={{
-						color: '#3b82f6', // Tailwind text-blue-500
+						color: '#3b82f6',
 						textDecoration: 'underline',
 					}}>
 					{children}
